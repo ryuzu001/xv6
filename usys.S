@@ -29,3 +29,6 @@ SYSCALL(getpid)
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
+SYSCALL(waitpid)
+SYSCALL(hello)	// CS153 - new system calls, waitpid and hello
+SYSCALL(setPriority)	//CS153 - lab2 priority

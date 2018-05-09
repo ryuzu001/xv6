@@ -3,8 +3,23 @@ struct rtcdate;
 
 // system calls
 int fork(void);
-int exit(void) __attribute__((noreturn));
-int wait(void);
+
+// int exit(void) __attribute__((noreturn));
+void exit(int status);
+
+// CS153 - changed def
+
+// int wait(void);
+int wait(int *status); 
+int waitpid(int pid, int *status, int options);
+
+// CS153 - changed wait, exit, waitpid and hello
+
+void hello(void);
+
+// CS153 - scheduler
+void setPriority(int);
+
 int pipe(int*);
 int write(int, void*, int);
 int read(int, void*, int);

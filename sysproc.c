@@ -13,18 +13,63 @@ sys_fork(void)
   return fork();
 }
 
+
 int
 sys_exit(void)
 {
-  exit();
+  int status;
+  if(argint(0, &status) < 0)
+    return -1;
+
+    exit(status);
   return 0;  // not reached
 }
 
 int
 sys_wait(void)
 {
-  return wait();
+  int *status;
+  argptr(0, (char**)&status, sizeof(int*));
+  return wait(status);
 }
+
+// CS153 - wait, exit, waitpid, helloworld
+
+void
+sys_hello()
+{
+	// cprintf("Hello from kernel space!\n");
+	return;
+}
+// CS153 - added hello and waitpid, touched exit and wait
+int
+sys_waitpid(void)
+{
+	int *status;
+	int pid, options;
+	if(argint(0, &pid) < 0)	// SET PID
+	  return -1;
+
+	argptr(1, (char**)&status, sizeof(int*));	// SET STATUS
+
+	if(argint(2, &options) < 0)	// SET OPTIONS
+	  return -1;
+
+	return waitpid(pid, status, options);
+}
+
+
+// CS153 - change priority lab2
+void
+sys_setPriority(void){
+   int pr;
+   if(argint(0, &pr) < 0)
+	return;
+   setPriority(pr);
+   return; 
+}
+
+
 
 int
 sys_kill(void)
